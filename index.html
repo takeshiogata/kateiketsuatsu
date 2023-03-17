@@ -4,9 +4,105 @@
 <head>
   <meta charset="UTF-8">
   <title>家庭血圧</title>
+  <style type="text/css">
+		@media screen {
+
+			/* .screenOnly {
+				display: block;
+			} */
+
+			.print_only {
+				display: none;
+			}
+
+			.editor {
+				font-size: 200%;
+				width: 800px;
+				height: 800px;
+				overflow: auto;
+				border: 1px #676767 solid;
+				line-height: 1.3;
+				text-align: justify;
+				margin-left: 20px;
+				margin-bottom: 2em;
+				padding: 20px;
+			}
+
+			textarea,
+			input[type="text"] {
+				font-size: 200%;
+				width: 800px;
+				height: 300px;
+				border: 1px #676767 solid;
+				line-height: 1.3;
+				text-align: justify;
+				margin-left: 20px;
+				margin-bottom: 2em;
+			}
+
+		}
+
+		br {
+			line-height: 1.5;
+		}
+
+		p {
+			margin-left: 20px;
+		}
+
+		button {
+			margin-left: 20px;
+		}
+
+		@media print {
+			#inputlength {
+				display: none;
+			}
+
+			@page {
+				margin: 25mm 25mm 25mm 25mm;
+			}
+
+			#print_div {
+				font-size: 10pt;
+				height: auto;
+				/*
+				width: 80%;
+ 				margin-left: 10%;
+				margin-top: 10%;
+ */
+				line-height: 1.3;
+				border: none;
+				text-align: justify;
+			}
+
+			textarea {
+				font-size: 10pt;
+				width: 80%;
+				/* height: 800px; */
+				margin-left: 10%;
+				margin-top: 50pt;
+				line-height: 1.3;
+				border: none;
+				text-align: justify;
+			}
+
+			.screenOnly {
+				display: none;
+			}
+
+    }				
+	</style>
 </head>
 
 <body>
+  <div>
+    家庭血圧を計算します<br>
+    下の入力エリアに7日分の自己測定血圧値を入れてください<br>
+    朝1回目収縮期血圧　＜タブ＞　朝1回目拡張期血圧　＜タブ＞　朝2回目収縮期血圧　＜タブ＞　朝2回目拡張期血圧　＜タブ＞　晩1回目収縮期血圧　＜タブ＞　晩1回目拡張期血圧　＜タブ＞　晩2回目収縮期血圧　＜タブ＞　晩2回目拡張期血圧　＜改行＞　で8個が1日分です<br>
+    同じように7日分7行の測定値を入力してください<br>
+    数値は必ず8個×7行で56個入力してください<br>
+  </div>
   <textarea id="matrix_input" rows="8" cols="60"></textarea><br>
   <button onclick="calKateiKetsuatsu()">家庭血圧を計算する</button>
   <br><br>
@@ -24,7 +120,7 @@
       for (let i = 0; i < rows.length; i++) {
         let cols = rows[i].split(/[\t ]+/).map(Number);
         if (cols.length != 8) { // 列数が8でない場合はエラーを表示して処理を終了
-          alert('Error: Invalid matrix format!');
+          alert("エラー；入力されたデータが不適切です");
           return;
         }
         matrix.push(cols); // 行列の列を行列配列に追加
