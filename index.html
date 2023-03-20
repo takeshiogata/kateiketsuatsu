@@ -113,7 +113,7 @@
 
     function calKateiKetsuatsu() {
       let matrixInput = document.getElementById('matrix_input').value.trim(); // テキストエリアの値を取得
-      let rows = matrixInput.split(/\n/); // 改行で分割して行列の行を取得
+      let rows = matrixInput.split(/\r?\n|\r/); // 改行で分割して行列の行を取得
       let matrix = []; // 行列を格納する配列を初期化
 
       // 各行をスペースまたはタブで分割して行列の列を取得
