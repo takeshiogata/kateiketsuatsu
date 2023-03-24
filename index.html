@@ -145,24 +145,25 @@
       console.log("血圧平均 朝 " + averages[0] + "/" + averages[1] + "　mmHg　" + "晩 " + averages[2] + "/" + averages[3] + "　mmHg");
       console.log("血圧平均　朝　は 《 " + morningClass + " 》 水準です");
       console.log("血圧平均　晩　は 《 " + eveningClass + " 》 水準です");
-	    
-      function classifyBloodPressure(systolic, diastolic) {
-        if (systolic < 115 && diastolic < 75) {
-          return "正常血圧";
-        } else if (systolic >= 115 && systolic <= 124 && diastolic < 75) {
-          return "正常高値血圧";
-        } else if ((systolic >= 125 && systolic <= 134 && diastolic <= 84) || (systolic <= 124 && diastolic >= 75 && diastolic <= 84)) {
-          return "高値血圧";
-        } else if ((systolic >= 135 && systolic <= 144 && diastolic <= 89) || (systolic <= 134 && diastolic >= 85 && diastolic <= 89)) {
-          return "Ⅰ度高血圧";
-        } else if ((systolic >= 145 && systolic <= 159 && diastolic <= 99) || (systolic <= 144 && diastolic >= 90 && diastolic <= 99)) {
-          return "Ⅱ度高血圧";
-        } else if (systolic >= 160 || diastolic >= 100) {
-          return "Ⅲ度高血圧";
-        } else {
-          return "測定値に誤りがあります";
-        }
+    }
+	  
+　　　　　　　　function classifyBloodPressure(systolic, diastolic) {
+　　　　　　　　　　　if (systolic < 115 && diastolic < 75) {
+　　　　　　　　　　　　　　　　return "正常血圧";
+　　　　　　　　　　　　} else if (systolic >= 115 && systolic <= 124 && diastolic < 75) {
+　　　　　　　　　　　　　　　　return "正常高値血圧";
+      } else if ((systolic >= 125 && systolic <= 134 && diastolic <= 84) || (systolic <= 124 && diastolic >= 75 && diastolic <= 84)) {
+        return "高値血圧";
+      } else if ((systolic >= 135 && systolic <= 144 && diastolic <= 89) || (systolic <= 134 && diastolic >= 85 && diastolic <= 89)) {
+        return "Ⅰ度高血圧";
+      } else if ((systolic >= 145 && systolic <= 159 && diastolic <= 99) || (systolic <= 144 && diastolic >= 90 && diastolic <= 99)) {
+        return "Ⅱ度高血圧";
+      } else if (systolic >= 160 || diastolic >= 100) {
+        return "Ⅲ度高血圧";
+      } else {
+        return "測定値に誤りがあります";
       }
+    }
   </script>
 </body>
 
