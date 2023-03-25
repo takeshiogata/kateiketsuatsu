@@ -121,7 +121,7 @@
       for (let i = 0; i < rows.length; i++) {
         let cols = rows[i].split(/[\t ]+/).map(Number);
         if (cols.length != 8) { // 列数が8でない場合はエラーを表示して処理を終了
-	alert_messageDiv.inmerHTML = "エラー；入力されたデータが不適切です";
+	alert_messageDiv.innerHTML = "エラー；入力されたデータが不適切です";
 //           alert("エラー；入力されたデータが不適切です");
           return;
         }
