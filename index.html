@@ -147,6 +147,7 @@
       const morningClass = classifyBloodPressure(averages[0], averages[1]);
       const eveningClass = classifyBloodPressure(averages[2], averages[3]);
 
+      alertDiv.innerHTML = "";
       resultDiv.innerHTML = "家庭血圧　7日分平均：<br>朝 " + averages[0] + "/" + averages[1] + " mmHg 《 " + morningClass + " 》水準です<br>" + "晩 " + averages[2] + "/" + averages[3] + " mmHg 《 " + eveningClass + " 》水準です";
 
       console.log("血圧平均 朝 " + averages[0] + "/" + averages[1] + "　mmHg　" + "晩 " + averages[2] + "/" + averages[3] + "　mmHg");
