@@ -118,12 +118,16 @@
       let rows = matrixInput.split(/\n/); // 改行で分割して行列の行を取得
       let matrix = []; // 行列を格納する配列を初期化
 
+      if (rows.length != 7) { // 行数が7でない場合はエラーを表示して処理を終了
+	alertDiv.innerHTML = "エラー：入力されたデータが不適切です。7日分7行の測定値を入力してください。";
+        return;
+      }
+	    
       // 各行をスペースまたはタブで分割して行列の列を取得
       for (let i = 0; i < rows.length; i++) {
         let cols = rows[i].split(/[\t ]+/).map(Number);
         if (cols.length != 8) { // 列数が8でない場合はエラーを表示して処理を終了
-		alertDiv.innerHTML = "エラー；入力されたデータが不適切です";
-// 		alert("エラー；入力されたデータが不適切です");
+          alertDiv.innerHTML = "エラー；入力されたデータが不適切です。数値は必ず8個×7行で56個入力してください。";
           return;
         }
         matrix.push(cols); // 行列の列を行列配列に追加
