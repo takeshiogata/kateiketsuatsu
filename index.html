@@ -103,7 +103,7 @@
     同じように7日分7行の測定値を入力してください<br>
     数値は必ず8個×7行で56個入力してください<br>
   </div>
-  <textarea id="matrix_input" rows="8" cols="60"></textarea><br>
+  <textarea id="matrix_input" onkeyup="calKateiKetsuatsu();" rows="8" cols="60"></textarea><br>
   <button onclick="calKateiKetsuatsu()">家庭血圧を計算する</button>
   <br><br>
   <div id="result"></div>
