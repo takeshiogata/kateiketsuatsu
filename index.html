@@ -106,7 +106,7 @@
   <textarea id="matrix_input" onkeyup="calKateiKetsuatsu()" rows="8" cols="60"></textarea><br>
   <button onclick="calKateiKetsuatsu()">家庭血圧を計算する</button>
   <br><br>
-  <div id="alertMessage"></div>
+  <div id="alert"></div>
   <div id="result"></div>
 
   <script type="text/javascript">
@@ -121,7 +121,7 @@
       for (let i = 0; i < rows.length; i++) {
         let cols = rows[i].split(/[\t ]+/).map(Number);
         if (cols.length != 8) { // 列数が8でない場合はエラーを表示して処理を終了
-		alertMessageDiv.innerHTML = "エラー；入力されたデータが不適切です";
+		alertDiv.innerHTML = "エラー；入力されたデータが不適切です";
 // 		alert("エラー；入力されたデータが不適切です");
           return;
         }
