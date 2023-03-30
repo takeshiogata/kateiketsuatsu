@@ -2,9 +2,9 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>家庭血圧</title>
-  <style type="text/css">
+	<meta charset="UTF-8">
+	<title>家庭血圧</title>
+	<style type="text/css">
 		@media screen {
 
 			/* .screenOnly {
@@ -91,88 +91,89 @@
 				display: none;
 			}
 
-    }				
+		}
 	</style>
 </head>
 
 <body>
-  <div>
-    家庭血圧を計算します @ver 0.1<br>
-    下の入力エリアに7日分の自己測定血圧値を入れてください<br>
-    朝1回目収縮期血圧　＜タブ＞　朝1回目拡張期血圧　＜タブ＞　朝2回目収縮期血圧　＜タブ＞　朝2回目拡張期血圧　＜タブ＞　晩1回目収縮期血圧　＜タブ＞　晩1回目拡張期血圧　＜タブ＞　晩2回目収縮期血圧　＜タブ＞　晩2回目拡張期血圧　＜改行＞　で8個が1日分です<br>
-    同じように7日分7行の測定値を入力してください<br>
-    数値は必ず8個×7行で56個入力してください<br>
-  </div>
-  <textarea id="matrix_input" onkeyup="calKateiKetsuatsu()" rows="8" cols="60"></textarea><br>
-  <button onclick="calKateiKetsuatsu()">家庭血圧を計算する</button>
-  <br><br>
-  <div id="alert"></div>
-  <div id="result"></div>
+	<div>
+		家庭血圧を計算します @ver 0.1<br>
+		下の入力エリアに7日分の自己測定血圧値を入れてください<br>
+		朝1回目収縮期血圧　＜タブ＞　朝1回目拡張期血圧　＜タブ＞　朝2回目収縮期血圧　＜タブ＞　朝2回目拡張期血圧　＜タブ＞　晩1回目収縮期血圧　＜タブ＞　晩1回目拡張期血圧　＜タブ＞　晩2回目収縮期血圧　＜タブ＞　晩2回目拡張期血圧　＜改行＞　で8個が1日分です<br>
+		（例）140 90 140 90 110 70 110 70
+		同じように7日分7行の測定値を入力してください<br>
+		数値は必ず8個×7行で56個入力してください<br>
+	</div>
+	<textarea id="matrix_input" onkeyup="calKateiKetsuatsu()" rows="8" cols="60"></textarea><br>
+	<button onclick="calKateiKetsuatsu()">家庭血圧を計算する</button>
+	<br><br>
+	<div id="alert"></div>
+	<div id="result"></div>
 
-  <script type="text/javascript">
-    let alertDiv = document.getElementById("alert");
-    let resultDiv = document.getElementById("result")
+	<script type="text/javascript">
+		let alertDiv = document.getElementById("alert");
+		let resultDiv = document.getElementById("result")
 
-    function calKateiKetsuatsu() {
-      let matrixInput = document.getElementById('matrix_input').value.trim(); // テキストエリアの値を取得
-      let rows = matrixInput.split(/\n/); // 改行で分割して行列の行を取得
-      let matrix = []; // 行列を格納する配列を初期化
+		function calKateiKetsuatsu() {
+			let matrixInput = document.getElementById('matrix_input').value.trim(); // テキストエリアの値を取得
+			let rows = matrixInput.split(/\n/); // 改行で分割して行列の行を取得
+			let matrix = []; // 行列を格納する配列を初期化
 
-      if (rows.length != 7) { // 行数が7でない場合はエラーを表示して処理を終了
-	alertDiv.innerHTML = "エラー：入力されたデータが不適切です。7日分7行の測定値を入力してください。";
-        return;
-      }
-	    
-      // 各行をスペースまたはタブで分割して行列の列を取得
-      for (let i = 0; i < rows.length; i++) {
-        let cols = rows[i].split(/[\t ]+/).map(Number);
-        if (cols.length != 8) { // 列数が8でない場合はエラーを表示して処理を終了
-          alertDiv.innerHTML = "エラー；入力されたデータが不適切です。数値は必ず8個×7行で56個入力してください。";
-          return;
-        }
-        matrix.push(cols); // 行列の列を行列配列に追加
-      }
-      console.log(matrix);
+			if (rows.length != 7) { // 行数が7でない場合はエラーを表示して処理を終了
+				alertDiv.innerHTML = "エラー：入力されたデータが不適切です。7日分7行の測定値を入力してください。";
+				return;
+			}
 
-      const averages = [];
-      const indices = [[0, 2], [1, 3], [4, 6], [5, 7]];
+			// 各行をスペースまたはタブで分割して行列の列を取得
+			for (let i = 0; i < rows.length; i++) {
+				let cols = rows[i].split(/[\t ]+/).map(Number);
+				if (cols.length != 8) { // 列数が8でない場合はエラーを表示して処理を終了
+					alertDiv.innerHTML = "エラー；入力されたデータが不適切です。数値は必ず8個×7行で56個入力してください。";
+					return;
+				}
+				matrix.push(cols); // 行列の列を行列配列に追加
+			}
+			console.log(matrix);
 
-      for (let i = 0; i < indices.length; i++) {
-        let sum = 0;
-        for (let j = 0; j < matrix.length; j++) {
-          sum += matrix[j][indices[i][0]] + matrix[j][indices[i][1]];
-        }
-        averages.push((sum / (matrix.length * 2)).toFixed(0));
-      }
-      const morningClass = classifyBloodPressure(averages[0], averages[1]);
-      const eveningClass = classifyBloodPressure(averages[2], averages[3]);
+			const averages = [];
+			const indices = [[0, 2], [1, 3], [4, 6], [5, 7]];
 
-      alertDiv.innerHTML = "";
-      resultDiv.innerHTML = "家庭血圧　7日分平均：<br>朝 " + averages[0] + "/" + averages[1] + " mmHg 《 " + morningClass + " 》水準です<br>" + "晩 " + averages[2] + "/" + averages[3] + " mmHg 《 " + eveningClass + " 》水準です";
+			for (let i = 0; i < indices.length; i++) {
+				let sum = 0;
+				for (let j = 0; j < matrix.length; j++) {
+					sum += matrix[j][indices[i][0]] + matrix[j][indices[i][1]];
+				}
+				averages.push((sum / (matrix.length * 2)).toFixed(0));
+			}
+			const morningClass = classifyBloodPressure(averages[0], averages[1]);
+			const eveningClass = classifyBloodPressure(averages[2], averages[3]);
 
-      console.log("血圧平均 朝 " + averages[0] + "/" + averages[1] + "　mmHg　" + "晩 " + averages[2] + "/" + averages[3] + "　mmHg");
-      console.log("血圧平均　朝　は 《 " + morningClass + " 》 水準です");
-      console.log("血圧平均　晩　は 《 " + eveningClass + " 》 水準です");
-    }
-	  
-　　　　　　　　function classifyBloodPressure(systolic, diastolic) {
-　　　　　　　　　　　if (systolic < 115 && diastolic < 75) {
-　　　　　　　　　　　　　　　　return "正常血圧";
-　　　　　　　　　　　　} else if (systolic >= 115 && systolic <= 124 && diastolic < 75) {
-　　　　　　　　　　　　　　　　return "正常高値血圧";
-      } else if ((systolic >= 125 && systolic <= 134 && diastolic <= 84) || (systolic <= 124 && diastolic >= 75 && diastolic <= 84)) {
-        return "高値血圧";
-      } else if ((systolic >= 135 && systolic <= 144 && diastolic <= 89) || (systolic <= 134 && diastolic >= 85 && diastolic <= 89)) {
-        return "Ⅰ度高血圧";
-      } else if ((systolic >= 145 && systolic <= 159 && diastolic <= 99) || (systolic <= 144 && diastolic >= 90 && diastolic <= 99)) {
-        return "Ⅱ度高血圧";
-      } else if (systolic >= 160 || diastolic >= 100) {
-        return "Ⅲ度高血圧";
-      } else {
-        return "測定値に誤りがあります";
-      }
-    }
-  </script>
+			alertDiv.innerHTML = "";
+			resultDiv.innerHTML = "家庭血圧　7日分平均：<br>朝 " + averages[0] + "/" + averages[1] + " mmHg 《 " + morningClass + " 》水準です<br>" + "晩 " + averages[2] + "/" + averages[3] + " mmHg 《 " + eveningClass + " 》水準です";
+
+			console.log("血圧平均 朝 " + averages[0] + "/" + averages[1] + "　mmHg　" + "晩 " + averages[2] + "/" + averages[3] + "　mmHg");
+			console.log("血圧平均　朝　は 《 " + morningClass + " 》 水準です");
+			console.log("血圧平均　晩　は 《 " + eveningClass + " 》 水準です");
+		}
+
+		function classifyBloodPressure(systolic, diastolic) {
+			if (systolic < 115 && diastolic < 75) {
+				return "正常血圧";
+			} else if (systolic >= 115 && systolic <= 124 && diastolic < 75) {
+				return "正常高値血圧";
+			} else if ((systolic >= 125 && systolic <= 134 && diastolic <= 84) || (systolic <= 124 && diastolic >= 75 && diastolic <= 84)) {
+				return "高値血圧";
+			} else if ((systolic >= 135 && systolic <= 144 && diastolic <= 89) || (systolic <= 134 && diastolic >= 85 && diastolic <= 89)) {
+				return "Ⅰ度高血圧";
+			} else if ((systolic >= 145 && systolic <= 159 && diastolic <= 99) || (systolic <= 144 && diastolic >= 90 && diastolic <= 99)) {
+				return "Ⅱ度高血圧";
+			} else if (systolic >= 160 || diastolic >= 100) {
+				return "Ⅲ度高血圧";
+			} else {
+				return "測定値に誤りがあります";
+			}
+		}
+	</script>
 </body>
 
 </html>
