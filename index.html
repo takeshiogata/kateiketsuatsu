@@ -93,6 +93,26 @@
 			}
 
 		}
+
+		table {
+			border-collapse: collapse;
+			float: left;
+		}
+
+		th,
+		td {
+			border: 1px solid gray;
+			padding: 5px;
+			text-align: center;
+		}
+
+		.labelCell {
+			width: 10em;
+		}
+
+		.numCell {
+			width: 3em;
+		}
 	</style>
 </head>
 
@@ -105,6 +125,32 @@
 		同じように7日分7行の測定値を入力してください<br>
 		数値は必ず8個×7行で56個入力してください<br>
 	</div>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="9" contenteditable>タイトル</th>
+			</tr>
+			<tr>
+				<th></th>
+				<th colspan="2" class="merged">朝1回目</th>
+				<th colspan="2" class="merged">朝2回目</th>
+				<th colspan="2" class="merged">晩1回目</th>
+				<th colspan="2" class="merged">晩2回目</th>
+			</tr>
+		</thead>
+		<tbody>
+			<script>
+				for (let i = 0; i < 7; i++) {
+					document.write("<tr>");
+					document.write('<td class="labelCell" contenteditable></td>');
+					for (let j = 0; j < 8; j++) {
+						document.write(`<td class="numCell" contenteditable oninput="this.textContent = this.textContent.replace(/[^0-9]/g, '')"></td>`);
+					}
+					document.write("</tr>");
+				}
+			</script>
+		</tbody>
+	</table>
 	<textarea id="matrix_input" onkeyup="calKateiKetsuatsu()" rows="8" cols="60"></textarea><br>
 	<h2>計算結果</h2>
 	<div id="alert"></div>
