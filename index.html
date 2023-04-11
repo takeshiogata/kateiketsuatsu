@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>家庭血圧を計算する</title>
+	<title>家庭血圧を計算します</title>
 	<style type="text/css">
 		@media screen {
 
@@ -182,6 +182,7 @@
 		const textArea = document.getElementById("text-area");
 
 		rightArrow.addEventListener("click", () => {
+			const table = document.querySelector("table");
 			const headerRow = table.rows[0];
 			const title = headerRow.cells[0].textContent + "\n";
 			const rows = table.querySelectorAll("tbody tr");
