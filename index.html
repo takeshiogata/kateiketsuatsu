@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>家庭血圧</title>
+	<title>家庭血圧を計算する</title>
 	<style type="text/css">
 		@media screen {
 
@@ -97,6 +97,7 @@
 
 		table {
 			border-collapse: collapse;
+			margin-left: 20px;
 			float: left;
 		}
 
@@ -105,6 +106,10 @@
 			border: 1px solid gray;
 			padding: 5px;
 			text-align: center;
+		}
+
+		.merged {
+			width: 6em;
 		}
 
 		.labelCell {
@@ -120,7 +125,8 @@
 <body>
 	<div>
 		<h1>家庭血圧を計算します</h1>
-		下の入力エリアに7日分の自己測定血圧値を入れてください<br>
+		テキスト入力エリアに7日分の自己測定血圧値を入れてください<br>
+		1行目は、氏名・月日などを自由に入力できます<br>
 		朝1回目収縮期血圧　＜タブ＞　朝1回目拡張期血圧　＜タブ＞　朝2回目収縮期血圧　＜タブ＞　朝2回目拡張期血圧　＜タブ＞　晩1回目収縮期血圧　＜タブ＞　晩1回目拡張期血圧　＜タブ＞　晩2回目収縮期血圧　＜タブ＞　晩2回目拡張期血圧　＜改行＞　で8個が1日分です<br>
 		（例）140 90 140 90 110 70 110 70<br>
 		同じように7日分7行の測定値を入力してください<br>
