@@ -86,6 +86,7 @@
 				line-height: 1.3;
 				border: none;
 				text-align: justify;
+				float: left;
 			}
 
 			.screenOnly {
@@ -151,7 +152,12 @@
 			</script>
 		</tbody>
 	</table>
-	<textarea id="matrix_input" onkeyup="calKateiKetsuatsu()" rows="8" cols="60"></textarea><br>
+	<div class="arrows">
+		<button id="left-arrow">←</button>
+		<br>
+		<button id="right-arrow">→</button>
+	</div>
+	<textarea id="text-area" onkeyup="calKateiKetsuatsu()" rows="8" cols="60"></textarea><br>
 	<h2>計算結果</h2>
 	<div id="alert"></div>
 	<div id="result"></div>
@@ -164,12 +170,52 @@
 	<script type="text/javascript">
 		let alertDiv = document.getElementById("alert");
 		let resultDiv = document.getElementById("result")
+		const table = document.querySelector("table");
+		const leftArrow = document.getElementById("left-arrow");
+		const rightArrow = document.getElementById("right-arrow");
+		const textArea = document.getElementById("text-area");
 
+		rightArrow.addEventListener("click", () => {
+			const headerRow = table.rows[0];
+			const title = headerRow.cells[0].textContent + "\n";
+			const rows = table.querySelectorAll("tbody tr");
+			let tsv = "";
+
+			for (const row of rows) {
+				const cells = row.querySelectorAll("td");
+				const values = [];
+
+				for (const cell of cells) {
+					values.push(cell.textContent);
+				}
+
+				tsv += values.join("\t") + "\n";
+			}
+
+			textArea.value = title + tsv;
+		});
+
+		leftArrow.addEventListener("click", () => {
+			const textArea = document.getElementById("text-area");
+			const tsv = textArea.value.trim();
+			const rows = tsv.split("\n");
+
+			table.rows[0].cells[0].textContent = rows[0];
+
+			for (let i = 1; i < 8; i++) {
+				const values = rows[i].split(/[\t ]+/);
+
+				for (let j = 0; j < 9; j++) {
+					table.rows[i + 1].cells[j].textContent = values[j];
+				}
+
+			}
+		});
 		// 対象となるテキストエリアにonkeydownイベントを追加する
-		document.getElementById("matrix_input").onkeydown = function (e) { OnTabKey(e, this); }
+		document.getElementById("text_area").onkeydown = function (e) { OnTabKey(e, this); }
 
 		function calKateiKetsuatsu() {
-			let matrixInput = document.getElementById('matrix_input').value.trim(); // テキストエリアの値を取得
+			let matrixInput = document.getElementById('text_area').value.trim(); // テキストエリアの値を取得
 			let rows = matrixInput.split(/\n/); // 改行で分割して行列の行を取得
 			let matrix = []; // 行列を格納する配列を初期化
 
