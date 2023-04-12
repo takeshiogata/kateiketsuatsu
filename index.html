@@ -220,23 +220,23 @@
 		});
 		
 		// 対象となるテキストエリアにonkeydownイベントを追加する
-		document.getElementById("text_area").onkeydown = function (e) { OnTabKey(e, this); }
+		document.getElementById("text-area").onkeydown = function (e) { OnTabKey(e, this); }
 
 		function calKateiKetsuatsu() {
-			let matrixInput = document.getElementById('text_area').value.trim(); // テキストエリアの値を取得
+			let matrixInput = document.getElementById('text-area').value.trim(); // テキストエリアの値を取得
 			let rows = matrixInput.split(/\n/); // 改行で分割して行列の行を取得
 			let matrix = []; // 行列を格納する配列を初期化
 
-			if (rows.length != 7) { // 行数が7でない場合はエラーを表示して処理を終了
-				alertDiv.innerHTML = "エラー：入力されたデータが不適切です。7日分7行の測定値を入力してください。";
+			if (rows.length != 8) { // 行数が8でない場合はエラーを表示して処理を終了
+				alertDiv.innerHTML = "エラー：入力されたデータが不適切です。1行目のメモ＋7日分7行の測定値を入力してください。";
 				return;
 			}
 
 			// 各行をスペースまたはタブで分割して行列の列を取得
 			for (let i = 0; i < rows.length; i++) {
 				let cols = rows[i].split(/[\t ]+/).map(Number);
-				if (cols.length != 8) { // 列数が8でない場合はエラーを表示して処理を終了
-					alertDiv.innerHTML = "エラー；入力されたデータが不適切です。数値は必ず8個×7行で56個入力してください。";
+				if (cols.length != 9) { // 列数が9でない場合はエラーを表示して処理を終了
+					alertDiv.innerHTML = "エラー；入力されたデータが不適切です。各行はラベル＋数値8個を入力してください。";
 					return;
 				}
 				matrix.push(cols); // 行列の列を行列配列に追加
